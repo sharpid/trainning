@@ -1,0 +1,44 @@
+#include <numeric>
+
+#include <unordered_set>
+//@todo sum 사용하면 anti sum 테스트에 걸림
+// 두가지 체크를 추가
+// 중복 값 있으면 안되고
+// size보다 큰 값이 있으면 안되고
+
+int solution(vector<int> &A) {
+
+    unordered_set<int> vecChecker;
+    vecChecker.reserve(A.size());
+    int sum = 0; //accumulate(A.begin(), A.end(), 0);
+
+    for ( auto& value : A)
+    {
+        sum += value;
+        
+        if (! vecChecker.insert(value).second)
+        {
+           // cout << "aa";
+            return 0;
+        }
+        if ( value > (int) A.size())
+        {
+           // cout << "bb";
+            return 0;
+        }
+        
+    }
+
+//
+//    return A.size() == vecChecker.size() ? 1: 0;
+
+
+    int N = (int)A.size();
+    
+    int calc = (1+N)*(N) / 2;
+
+    auto ret = (sum == calc) ? 1:0;
+    
+    
+    return ret;
+}

@@ -1,0 +1,18 @@
+#include <unordered_set>
+
+int solution(vector<int> &A) {
+
+    std::unordered_set<int> setTemp;
+    
+    for ( auto& element : A)
+    {
+        auto insertResult = setTemp.insert(element);
+	if ( !insertResult.second )
+	{
+		setTemp.erase(insertResult.first);
+	}
+
+    }
+    
+    return *setTemp.begin();
+}

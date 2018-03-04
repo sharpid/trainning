@@ -1,0 +1,11 @@
+#include <cmath>
+
+// @todo ceil 으로 계산시 float 정수부 부족으로 큰 값에 오류가 발생
+
+int solution(int X, int Y, int D) {
+    
+    auto diff = Y - X;
+    int count = diff / D;
+    return diff % D != 0 ? count+1 : count;
+    
+}

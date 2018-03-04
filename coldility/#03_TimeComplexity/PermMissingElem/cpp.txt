@@ -1,0 +1,12 @@
+
+#include <numeric>
+
+int solution(vector<int> &A) {
+
+    auto sum = accumulate(A.begin(), A.end(), 0);
+    auto N = A.size() + 1;
+    
+    auto calc = (1+N)*(N) / 2;
+
+    return calc - sum;
+}

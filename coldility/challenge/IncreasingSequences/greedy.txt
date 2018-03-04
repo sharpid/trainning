@@ -1,0 +1,65 @@
+// you can use includes, for example:
+#include <algorithm>
+#include <utility>
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
+
+int solution(vector<int> &A, vector<int> &B) {
+    // write your code in C++14 (g++ 6.2.0)
+    unsigned int swapcount = 0;
+
+    std::vector<int> swapposlist;
+    
+    for ( unsigned int pos = 1; pos < A.size() ; ++pos)
+    {
+        auto&& preA = A.at(pos -1);
+        auto&& preB = B.at(pos -1);
+        auto&& curA = A.at(pos);
+        auto&& curB = B.at(pos);
+        
+        if ( curA > preA && curB > preB )
+        {
+           continue;
+        }
+        else
+        {
+            std::swap(curA,curB);
+            ++swapcount;
+            swapposlist.push_back(pos);
+            
+            if (!( curA > preA && curB > preB ))
+            {
+                return -1;
+            }
+        }
+    }
+    
+    for (auto& pos : swapposlist )
+    {
+        auto&& preA = A.at(pos -1);
+        auto&& preB = B.at(pos -1);
+        auto&& curA = A.at(pos);
+        auto&& curB = B.at(pos);
+        
+        if ( pos < A.size() -1 )
+        {
+            auto&& nextA = A.at(pos+1);
+            auto&& nextB = B.at(pos+1);
+            
+            if ( preA < curB && curB < nextA && preB<curA && curA < nextB )
+            {
+                --swapcount;
+            }
+        }
+        else
+        {
+            if ( preA < curB && preB<curA )
+            {
+                --swapcount;
+            }
+        }
+    }
+
+    unsigned int reversecount = A.size() - swapcount;
+    return std::min(reversecount, swapcount);
+}
